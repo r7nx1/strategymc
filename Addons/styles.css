@@ -381,3 +381,27 @@ footer p {
       grid-template-columns: 1fr;
   }
 }
+
+
+/* تخصيص شريط التمرير بالكامل */
+::-webkit-scrollbar {
+    width: 12px; /* عرض شريط التمرير */
+}
+
+/* تخصيص الخلفية */
+::-webkit-scrollbar-track {
+    background: #111; /* لون أسود أنيق للخلفية */
+    border-radius: 10px; /* حواف ناعمة */
+}
+
+/* تخصيص المقبض (Thumb) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #FFD700, #B8860B); /* تدرج ذهبي */
+    border-radius: 10px; /* زوايا ناعمة */
+    border: 2px solid #222; /* حدود خفيفة لتعزيز المظهر */
+}
+
+/* تأثير عند تمرير الماوس */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #FFB800, #8B6508); /* لون ذهبي أغمق عند التمرير */
+}
