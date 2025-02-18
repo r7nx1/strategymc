@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrategyMC - Server Policies</title>
+    <link rel="stylesheet" href="Addons/styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-logo">StrategyMC</a>
+            <div class="nav-links">
+                <a href="store.strategymc.xyz" class="nav-link">Store</a>
+                <a href="apply.html" class="nav-link">Get a Job</a>
+                <a href="rules.html" class="nav-link">Rules</a>
+                <a href="policies.html" class="nav-link">Policies</a>
+                <a href="index.html#discord" class="nav-link">Discord</a>
+              </div>
+        </nav>
+    </header>
+
+    <section class="policies-section">
+        <div class="policies-container">
+            <h1 class="section-title">Server Policies</h1>
+            <p class="policies-notice">
+                By accessing and using the StrategyMC server, you agree to comply with the following policies. These policies are designed to ensure a safe and enjoyable experience for all players.
+            </p>
+            <div class="policies-list">
+                <div class="policy-card">
+                    <h3>1. Privacy Policy</h3>
+                    <p>We are committed to protecting players' privacy and will not collect or share any personal data without explicit consent.</p>
+                    <p>Player account data is stored solely to improve gameplay experience (such as name, email, and account settings).</p>
+                </div>
+                <div class="policy-card">
+                    <h3>2. Usage Policy</h3>
+                    <p>The server is intended solely for a healthy and enjoyable gaming environment.</p>
+                    <p>Anyone can join the server, but the administration has the right to take action against any behavior that negatively impacts the gameplay experience.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>3. Player Interaction Policy</h3>
+                    <p>Players are encouraged to respect one another and interact positively.</p>
+                    <p>The administration reserves the right to intervene in case of player conflicts and impose actions based on the situation.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>4. Technical Support Policy</h3>
+                    <p>Technical support is provided through official channels such as <strong>Discord</strong> or email.</p>
+                    <p>The support team is committed to responding to player inquiries as quickly as possible and offering solutions to technical or account-related issues.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>5. Ban and Re-entry Policy</h3>
+                    <p>If an account is banned due to policy violations, players may submit an appeal through official channels.</p>
+                    <p>Each case will be reviewed individually by the administration, and the ban may be lifted based on the administrative decision.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>6. Updates and Modifications Policy</h3>
+                    <p>The server may undergo updates periodically to improve performance or add new features.</p>
+                    <p>All updates and modifications will be announced via official channels such as <strong>Discord</strong> or in-game.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>7. Content and Ownership Policy</h3>
+                    <p>All server content, including maps, mods, and plugins, is the property of the developers.</p>
+                    <p>Players are prohibited from modifying or distributing server content without permission.</p>
+                </div>
+                <div class="policy-card">
+                    <h3>8. Marketing and Promotion Policy</h3>
+                    <p>Advertising within the server is only allowed if it directly relates to the server or complies with the rules.</p>
+                    <p>Any unwanted promotion or spam will result in immediate consequences, such as temporary or permanent bans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 StrategyMC. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('serverAddress').addEventListener('click', function() {
+            navigator.clipboard.writeText('mc.strategymc.xyz');
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        });
+
+        if (window.location.pathname.endsWith(".html")) {
+            window.history.replaceState(null, "", window.location.pathname.replace(".html", ""));
+        }
+        
+
+        document.querySelectorAll('.more-info-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = btn.closest('.game-mode-card');
+                card.classList.add('show-overlay');
+            });
+        });
+
+        document.querySelectorAll('.close-overlay').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.game-mode-card');
+                card.classList.remove('show-overlay');
+            });
+        });
+    </script>
+</body>
+</html>

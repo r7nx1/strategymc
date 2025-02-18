@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrategyMC - Server Rules</title>
+    <link rel="stylesheet" href="Addons/styles.css">
+    <style>
+        :root {
+            --gold: #FFB636;
+            --gold-dark: #D99B2B;
+            --black: #0A0A0A;
+            --black-light: #1A1A1A;
+          }
+          
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+          }
+          
+          body {
+            background: var(--black);
+            color: white;
+            line-height: 1.6;
+          }
+          
+        /* Add to the existing CSS file */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+          }
+          
+          .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .nav-logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+          }
+          
+          .nav-links {
+            display: flex;
+            gap: 2rem;
+          }
+          
+          .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+          }
+          
+          .nav-link:hover {
+            color: var(--gold);
+          }
+          
+          .discord-section {
+            background: var(--black-light);
+            padding: 6rem 2rem;
+            text-align: center;
+          }
+          
+          .discord-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--black);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+          }
+          
+          .discord-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+          }
+          
+          .discord-feature {
+            text-align: center;
+          }
+          
+          .discord-feature h3 {
+            color: var(--gold);
+            margin: 1rem 0;
+            font-size: 1.2rem;
+          }
+          
+          .discord-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #5865F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: none;
+          }
+          
+          .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+            background: #4752c4;
+          }
+          
+          .hero {
+            padding-top: 80px; /* Add this to account for fixed header */
+          }
+          
+          @media (max-width: 768px) {
+            .nav {
+              flex-direction: column;
+              gap: 1rem;
+            }
+            
+            .nav-links {
+              flex-direction: column;
+              gap: 1rem;
+              text-align: center;
+            }
+            
+            .header {
+              padding: 1rem;
+            }
+          }
+        
+          .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('https://images.unsplash.com/photo-1607988795691-3d0147b43231?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+          }
+          
+          .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, var(--black));
+          }
+          
+          .hero-content {
+            max-width: 1000px;
+            padding: 20px;
+            z-index: 1;
+          }
+          
+          .server-title {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            letter-spacing: 2px;
+            color: var(--gold);
+          }
+          
+          .description {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #fff;
+          }
+          
+          .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+          }
+          
+          .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+          }
+          
+          .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 182, 54, 0.3);
+            background: var(--gold-dark);
+            border-color: var(--gold-dark);
+          }
+          
+          .cta-button.secondary {
+            background: transparent;
+            color: var(--gold);
+          }
+          
+          .cta-button.secondary:hover {
+            background: var(--gold);
+            color: var(--black);
+          }
+          
+          .game-modes {
+            padding: 6rem 2rem;
+            background: var(--black-light);
+            position: relative;
+          }
+          
+          .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          
+          .game-modes-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+          }
+          
+          .game-mode-card {
+            background: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .game-mode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 182, 54, 0.2);
+          }
+          
+          .game-mode-card h3 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+          }
+          
+          .game-mode-card p {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+          }
+          
+          .features {
+            padding: 6rem 2rem;
+            background: var(--black);
+            position: relative;
+          }
+          
+          .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+          }
+          
+          .feature-card {
+            background: var(--black-light);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            text-align: center;
+            transition: transform 0.3s ease;
+          }
+          
+          .feature-card:hover {
+            transform: translateY(-5px);
+          }
+          
+          .feature-card h3 {
+            color: var(--gold);
+            margin: 1rem 0;
+            font-size: 1.5rem;
+          }
+          
+          .how-to-join {
+            padding: 8rem 2rem;
+            background: var(--black-light);
+            text-align: center;
+          }
+          
+          .steps-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+          }
+          
+          .step-card {
+            background: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            position: relative;
+          }
+          
+          .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+          }
+          
+          .server-info {
+            background: var(--black);
+            padding: 6rem 2rem;
+            text-align: center;
+          }
+          
+          .server-address {
+            font-size: 1.8rem;
+            padding: 1.5rem 3rem;
+            background: var(--black-light);
+            border: 3px solid var(--gold);
+            display: inline-block;
+            border-radius: 10px;
+            margin: 2rem 0;
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+          }
+          
+          .server-address:hover {
+            background: rgba(255, 182, 54, 0.1);
+            transform: scale(1.05);
+          }
+          
+          .version-info {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+          }
+          
+          .footer {
+            background: var(--black);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--gold);
+          }
+          
+          .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+          
+          .copy-notification.show {
+            opacity: 1;
+          }
+          
+          @media (max-width: 768px) {
+            .server-title {
+              font-size: 2.5rem;
+            }
+          
+            .game-modes-grid,
+            .features-grid,
+            .steps-container {
+              grid-template-columns: 1fr;
+            }
+          
+            .cta-buttons {
+              flex-direction: column;
+            }
+          
+            .server-address {
+              font-size: 1.4rem;
+              padding: 1rem 2rem;
+            }
+          }
+        
+          .rules-section, .policies-section {
+            padding: 6rem 2rem;
+            background: var(--black-light);
+            text-align: center;
+        }
+        
+        .rules-container, .policies-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--black);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+        }
+        
+        .rules-notice, .policies-notice {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+        }
+        
+        .rules-list, .policies-list {
+            display: grid;
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .rule-card, .policy-card {
+            background: var(--black-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--gold);
+        }
+        
+        .rule-card h3, .policy-card h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .rule-card p, .policy-card p {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        :root {
+            --gold: #FFB636;
+            --gold-dark: #D99B2B;
+            --black: #0A0A0A;
+            --black-light: #1A1A1A;
+            /* إضافة متغيرات جديدة للانيميشن */
+            --transition-speed: 0.3s;
+            --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        /* تحسينات عامة للصفحة */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: var(--black);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* تحسين الهيدر */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        /* إخفاء الهيدر عند السكرول للأسفل */
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .nav-logo {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            transform: translateX(-100%);
+            transition: transform 0.3s var(--bounce);
+        }
+        
+        .nav-logo:hover::after {
+            transform: translateX(0);
+        }
+        
+        /* تحسين القائمة */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s var(--bounce);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s var(--bounce);
+        }
+        
+        .nav-link:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* تحسين قسم Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1607988795691-3d0147b43231?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            animation: heroFade 1s ease-out;
+        }
+        
+        @keyframes heroFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* تحسين البطاقات */
+        .game-mode-card, .feature-card {
+            background: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            text-align: center;
+            transition: all 0.4s var(--bounce);
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        .step-card{
+            animation: cardAppear 0.6s ease-out;
+            transition: all 0.4s var(--bounce);
+        
+        
+        }
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .game-mode-card:hover, .feature-card:hover, .step-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 182, 54, 0.2);
+        }
+        
+        /* تحسين الأزرار */
+        .cta-button, .discord-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s var(--bounce);
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before, .discord-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%) rotate(45deg) scale(0);
+            transition: transform 0.6s ease;
+        }
+        
+        .cta-button:hover::before, .discord-button:hover::before {
+            transform: translate(-50%, -50%) rotate(45deg) scale(1);
+        }
+        
+        /* تحسينات للأجهزة المحمولة */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+        
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--black);
+                padding: 1rem;
+                flex-direction: column;
+                align-items: center;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+        
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        
+            .hamburger {
+                display: block;
+                cursor: pointer;
+            }
+        
+            .server-title {
+                font-size: 2.5rem;
+            }
+        
+            .game-modes-grid,
+            .features-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+        
+        /* تحسينات للأجهزة اللوحية */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .game-modes-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+        
+        /* تحسين الانيميشن للتحميل */
+        .loading {
+            animation: shimmer 1.5s infinite linear;
+            background: linear-gradient(
+                90deg,
+                var(--black-light) 0%,
+                var(--black) 50%,
+                var(--black-light) 100%
+            );
+            background-size: 200% 100%;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        /* تحسين قسم Discord */
+        .discord-container {
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* تحسين إشعار النسخ */
+        .copy-notification {
+            transform: translateY(20px);
+            transition: all 0.3s var(--bounce);
+        }
+        
+        .copy-notification.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-logo">StrategyMC</a>
+            <div class="nav-links">
+              <a href="store.strategymc.xyz" class="nav-link">Store</a>
+              <a href="apply.html" class="nav-link">Get a Job</a>
+              <a href="rules.html" class="nav-link">Rules</a>
+              <a href="policies.html" class="nav-link">Policies</a>
+              <a href="index.html#discord" class="nav-link">Discord</a>
+        </div>
+        </nav>
+    </header>
+
+    <section class="rules-section">
+        <div class="rules-container">
+            <h1 class="section-title">Server Rules</h1>
+            <p class="rules-notice">
+                By joining the StrategyMC server, you agree to abide by the following rules. Failure to comply may result in penalties, including bans or blacklisting.
+            </p>
+            <div class="rules-list">
+                <div class="rule-card">
+                    <h3>Allowed Age to Join the Server</h3>
+                    <p>The allowed age is <strong>9 years</strong>. Any player younger than this, their guardian or responsible person is fully accountable.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Profanity and NSFW Content</h3>
+                    <p>Profanity or any reference to inappropriate or explicit content (NSFW) is not allowed.</p>
+                    <p><strong>Penalty:</strong> Added to the <strong>Blacklist</strong>.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Exploiting Bugs for Personal Gain</h3>
+                    <p>Exploiting any game bugs and failing to report them to the administration is prohibited.</p>
+                    <p><strong>Penalty:</strong> <strong>14-day ban</strong> with items obtained from the exploit being confiscated.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Real Money Transactions or Gambling</h3>
+                    <p>Real money transactions or gambling are strictly forbidden.</p>
+                    <p><strong>Penalty:</strong> <strong>144-day ban</strong>.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Advertising Other Servers</h3>
+                    <p>Advertising other servers, either via direct messages on Discord or within the Minecraft server, is not allowed.</p>
+                    <p><strong>Penalty:</strong> Added to the <strong>Blacklist</strong>.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Using Hacked Clients or Illegal Mods</h3>
+                    <p>Using cheats or illegal modifications such as Killaura, Fly, Speed, Scaffolding, and other such mods is not allowed.</p>
+                    <p><strong>Penalty:</strong> <strong>Permanent Ban</strong>.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Teaming in Solo Games</h3>
+                    <p>Teaming with other players in solo games is prohibited.</p>
+                    <p><strong>Penalty:</strong> <strong>Points deduction</strong> and a warning, with a ban if repeated.</p>
+                </div>
+                <div class="rule-card">
+                    <h3>Hacking or Threatening to DDoS the Server</h3>
+                    <p>Threatening to hack the server or launching DDoS attacks is not allowed.</p>
+                    <p><strong>Penalty:</strong> Added to the <strong>Blacklist</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 StrategyMC. All rights reserved.</p>
+    </footer>
+    <script>
+      document.getElementById('serverAddress').addEventListener('click', function() {
+          navigator.clipboard.writeText('mc.strategymc.xyz');
+          const notification = document.getElementById('copyNotification');
+          notification.classList.add('show');
+          setTimeout(() => {
+              notification.classList.remove('show');
+          }, 2000);
+      });
+
+      if (window.location.pathname.endsWith(".html")) {
+          window.history.replaceState(null, "", window.location.pathname.replace(".html", ""));
+      }
+      
+
+      document.querySelectorAll('.more-info-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              const card = btn.closest('.game-mode-card');
+              card.classList.add('show-overlay');
+          });
+      });
+
+      document.querySelectorAll('.close-overlay').forEach(btn => {
+          btn.addEventListener('click', () => {
+              const card = btn.closest('.game-mode-card');
+              card.classList.remove('show-overlay');
+          });
+      });
+  </script>
+</body>
+</html>
